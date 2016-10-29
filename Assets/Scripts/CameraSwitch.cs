@@ -24,11 +24,8 @@ public class CameraSwitch : MonoBehaviour {
         ACTIVE_CAMERA = fpc;
     }
 	void Update(){
-		print ("Update is running");
 		if (Input.GetKeyDown(KeyCode.Q)){
-			print ("Key press is working");
 			if (fpc.isActiveAndEnabled == true){
-				print ("Camera check is working");
 				ShowOverheadView ();
 			}else{
 				ShowFirstPersonView ();
