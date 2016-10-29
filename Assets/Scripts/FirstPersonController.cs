@@ -8,7 +8,6 @@ public class FirstPersonController : MonoBehaviour {
 	float vrot = 0;
 	public int vrange = 60;
 	float vvelocity = 0;
-
 	CharacterController characterController;
 
 	// Use this for initialization
@@ -20,7 +19,6 @@ public class FirstPersonController : MonoBehaviour {
 
 	void Update ()
 	{
-		// Camera switching
 
 			float hrot = Input.GetAxis ("Mouse X") * sens;
 			transform.Rotate (0, hrot, 0);
@@ -28,8 +26,8 @@ public class FirstPersonController : MonoBehaviour {
 			vrot -= Input.GetAxis ("Mouse Y") * sens;
 
 			vrot = Mathf.Clamp (vrot, -vrange, vrange);
-
-			Camera.main.transform.localRotation = Quaternion.Euler (vrot, 0, 0);
+            
+            CameraSwitch.ACTIVE_CAMERA.transform.localRotation = Quaternion.Euler (vrot, 0, 0);
 
 
 			// Movement
