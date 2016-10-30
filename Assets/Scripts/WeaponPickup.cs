@@ -2,8 +2,6 @@
 using System.Collections;
 
 public class WeaponPickup : MonoBehaviour {
-	public string[] PrimaryGuns = {"Gun1", "Gun2", "Gun3"};
-	public string[] SecondaryGuns = { "Pistol1", "Pistol2", "Pistol3" };
 	//Current Primary & Secondary Guns
 	public int currentPGun;
 	public int currentSGun;
@@ -31,3 +29,4 @@ public class WeaponPickup : MonoBehaviour {
 		}
 	}
 }
+		
