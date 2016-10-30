@@ -8,6 +8,9 @@ public class FirstPersonController : MonoBehaviour {
 	float vrot = 0;
 	public int vrange = 60;
 	float vvelocity = 0;
+	float bob = 0.01f;
+	float bobrange = 0.15f;
+	float tbob = 0f;
 	CharacterController characterController;
 
 	// Use this for initialization
@@ -19,17 +22,30 @@ public class FirstPersonController : MonoBehaviour {
 
 	void Update ()
 	{
+		float hrot = Input.GetAxis ("Mouse X") * sens;
+		transform.Rotate (0, hrot, 0);
 
-			float hrot = Input.GetAxis ("Mouse X") * sens;
-			transform.Rotate (0, hrot, 0);
-
+		if (GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera>().enabled == true) {
 			vrot -= Input.GetAxis ("Mouse Y") * sens;
-
 			vrot = Mathf.Clamp (vrot, -vrange, vrange);
             
-            CameraSwitch.ACTIVE_CAMERA.transform.localRotation = Quaternion.Euler (vrot, 0, 0);
-
-
+			CameraSwitch.ACTIVE_CAMERA.transform.localRotation = Quaternion.Euler (vrot, 0, 0);
+			//view bobbing
+				if ((characterController.velocity != Vector3.zero) && (characterController.isGrounded == true)) {
+					tbob += bob;
+					Vector3 bobbing = new Vector3 (0, bob, 0);
+					CameraSwitch.ACTIVE_CAMERA.transform.position = CameraSwitch.ACTIVE_CAMERA.transform.position + bobbing;
+						if ((tbob > bobrange)) {
+							bob = -0.01f;
+						} else if (tbob == 0) {
+							if (Random.Range (0, 3) == 1) {
+								bob = 0.01f;
+							} else {
+								bob = 0.0f;
+						}
+					}
+				}
+			}
 			// Movement
 
 			float forwardSpeed = Input.GetAxis ("Vertical") * playerspeed;
